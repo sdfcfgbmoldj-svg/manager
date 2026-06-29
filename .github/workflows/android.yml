@@ -3,7 +3,8 @@ name: Build Android APK
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -16,7 +17,8 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install
+      - name: Install packages
+        run: npm install
 
       - uses: actions/setup-java@v4
         with:
@@ -25,11 +27,11 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      - name: Add Android
-  run: npx cap add android
+      - name: Add Android Platform
+        run: npx cap add android
 
-- name: Sync Android
-  run: npx cap sync android
+      - name: Sync Android
+        run: npx cap sync android
 
       - name: Build APK
         run: |
